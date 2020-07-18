@@ -16,6 +16,9 @@
 
 # Global tags can be specified here in key="value" format.
 [global_tags]
+  {% for key in telegraf.agent.global_tags %}
+  {{key}} = "{{ telegraf.agent.global_tags[key]|quote}}"
+  {% endfor %}
   # dc = "us-east-1" # will tag all metrics with dc=us-east-1
   # rack = "1a"
   ## Environment variables can be used as tags, and throughout the config file
