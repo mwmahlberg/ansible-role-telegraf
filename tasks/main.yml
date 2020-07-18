@@ -1,0 +1,46 @@
+# ansible-role-telegraf - Role to deploy InfluxData's telegraf
+# Copyright (C) 2020  Markus W Mahlberg
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+---
+# tasks file for telegraf
+- name: Ensure InfluxData repo is present
+  copy:
+    src: 'influxdb.repo'
+    dest: '/etc/yum.repos.d/influxdb.repo'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: Ensure Telegraf is installed
+  package:
+    name: 'telegraf'
+    state: 'installed'
+
+- name: Ensure telegraf is configured properly
+  template:
+    src: 'telegraf.conf.j2'
+    dest: '/etc/telegraf/telegraf.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+    validate: '/usr/bin/telegraf -c %s --test'
+  notify: 'restart telegraf'
+
+- name: Gather information about installed services
+  service_facts:
+
+- name: Installed services
+  debug:
+    var: ansible_facts.services
