@@ -6,17 +6,31 @@ An [Ansible][ansible] role to deploy InfluxData's [Telegraf][influx:telegraf] ag
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+none
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+| Name                                             | Description                                                                                                                                            | Default Value               |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| `telegraf.agent.global_tags`                     | [Tags][influxdb:tags] applied to all metrics                                                                                                           | none                        |
+| `telegraf.agent.interval`                        | Default data collection interval for all inputs as [Go duration expression][go:duration]                                                               | `10s`                       |
+| `telegraf.agent.flush_interval`                  | Default flushing interval for all outputs. You shouldn't set this below`telegraf.agent.interval`. [Go duration expression][go:duration]                | `10s`                       |
+| `telegraf.agent.flush_jitter`                    | Jitter the flush interval by a random amount `0s < value < telegraf.agent.flush_jitter`. [Go duration expression][go:duration]                         | `0s`                        |
+| `telegraf.agent.round_interval`                  | Rounds collection interval to `telegraf.agent.interval`, ie, if `telegraf.agent.interval` is "10s" then always collect on :00, :10, :20, etc.          | `false`                     |
+| `telegraf.agent.collection_jitter`               | Collection jitter is used to jitter the collection by a random amount. [Go duration expression][go:duration]. Must be < than `telegraf.agent.interval` | `0s`                        |
+| `telegraf.agent.metric.batch_size`               | Telegraf will send metrics to outputs in batches of at most `telegraf.agent.metric.batch_size`.                                                        | `1000`                      |
+| `telegraf.agent.metric.buffer_limit`             | For failed writes, telegraf will cache metric_buffer_limit metrics for each output, and will flush this buffer on a successful write.                  | `100000`                    |
+| `telegraf.agent.debug`                           | Run telegraf with debug log messages.                                                                                                                  | `false`                     |
+| `telegraf.agent.quiet`                           | Run telegraf in quiet mode (error log messages only).                                                                                                  | `false`                     |
+| `telegraf.agent.hostname`                        | Override default hostname, if empty the hostname will be automatically determined.                                                                     | none                        |
+| `telegraf.agent.omit_hostname`                   | If set to true, do no set the "host" tag in the telegraf agent. ***Do not change unless you really know what you are doing.***                         | `false`                     |
+| `telegraf.outputs.influxdb.urls`                 | A list of full HTTP URLs for your InfluxDB instance.                                                                                                   | `["http://127.0.0.1:8086"]` |
+| `telegraf.outputs.influxdb.insecure_skip_verify` | When set to true, and `telegraf.outputs.influxdb.urls` contains `https` URLs, TLS is used, but the chain & host verification is skipped.               | `false`                     |
+| `telegraf.outputs.influxdb.database`             | The target database for metrics; will be created as needed.                                                                                            | `metrics`                   |
+| `telegraf.outputs.influxdb.retention_policy`     | Name of existing [retention policy][influx:retention_policy] to write to. If empty, telegraf writes to the default retention policy                    | none                        |
+| `telegraf.outputs.influxdb.username`             | Username to authenticate telegraf against InfluxDB.                                                                                                    | none                        |
+| `telegraf.outputs.influxdb.password`             | Password to authenticate telegraf against InfluxDB.                                                                                                    | none                        |
 
 Example Playbook
 ----------------
@@ -25,14 +39,29 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: telegraf, telegraf.outputs.influxdb.username: 'me', telegraf.outputs.influxdb.password: 'secret' }
 
 License
 -------
 
-BSD
+ansible-role-telegraf - Role to deploy InfluxData's telegraf
+Copyright (C) 2020  Markus W Mahlberg
 
-Author Information
-------------------
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+[ansible]: https://docs.ansible.com/ansible/latest/index.html
+[influx:telegraf]: https://docs.influxdata.com/telegraf/v1.14/
+[influx:retention_policy]: https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#retention-policy-rp
+[go:duration]: https://pkg.go.dev/time?tab=doc#ParseDuration

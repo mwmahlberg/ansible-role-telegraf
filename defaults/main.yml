@@ -19,22 +19,21 @@ telegraf:
   agent:
     global_tags: {}
     interval: 10s
+    round_interval: 'false'
     collection_jitter: '0s'
     metric:
       batch_size: 1000
       buffer_limit: 100000
-      collection_jitter: '0s'
     flush_interval: '10s'
-    round_interval: 'false'
     flush_jitter: '0s'
     debug: 'false'
     quiet: 'false'
-    hostname: ''
+    hostname: 
     omit_hostname: 'false'
 
   outputs:
     influxdb:
-      urls: []
+      urls: ["http://127.0.0.1:8086"]
       insecure_skip_verify: 'false'
       database: 'metrics'
       retention_policy: ''
