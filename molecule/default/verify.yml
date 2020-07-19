@@ -19,6 +19,12 @@
 - name: Verify
   hosts: all
   tasks:
-  - name: Example assertion
+  - name: Look for ECDSA private key
+    stat:
+      path: /etc/telegraf/telegraf.conf
+    register: configfile 
+  - debug:
+      var: configfile
+  - name: Check that /etc/telegraf/telegraf.conf exists
     assert:
-      that: true
+      that: configfile.stat.exists

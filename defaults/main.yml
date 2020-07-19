@@ -15,28 +15,23 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 # defaults file for telegraf
-telegraf:
-  agent:
-    global_tags: {}
-    interval: 10s
-    round_interval: 'false'
-    collection_jitter: '0s'
-    metric:
-      batch_size: 1000
-      buffer_limit: 100000
-    flush_interval: '10s'
-    flush_jitter: '0s'
-    debug: 'false'
-    quiet: 'false'
-    hostname: 
-    omit_hostname: 'false'
+telegraf_agent_global_tags: {}
+telegraf_agent_interval: 10s
+telegraf_agent_round_interval: 'false'
+telegraf_agent_collection_jitter: '0s'
+telegraf_agent_metric_batch_size: 1000
+telegraf_agent_metric_buffer_limit: 100000
+telegraf_agent_flush_interval: '10s'
+telegraf_agent_flush_jitter: '0s'
+telegraf_agent_debug: 'false'
+telegraf_agent_quiet: 'false'
+telegraf_agent_hostname: 
+telegraf_agent_omit_hostname: 'false'
 
-  outputs:
-    influxdb:
-      urls: ["http://127.0.0.1:8086"]
-      insecure_skip_verify: 'false'
-      database: 'metrics'
-      retention_policy: ''
-      username: ''
-      password: ''
+telegraf_outputs_influxdb_urls: ['http://127.0.0.1:8086']
+telegraf_outputs_influxdb_insecure_skip_verify: 'false'
+telegraf_outputs_influxdb_database: 'metrics'
+telegraf_outputs_influxdb_retention_policy: ''
+telegraf_outputs_influxdb_username: ''
+telegraf_outputs_influxdb_password: ''
 

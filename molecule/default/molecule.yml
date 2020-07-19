@@ -22,6 +22,8 @@ platforms:
   - name: centos8
     image: centos:8
     command: /sbin/init
+    groups:
+      - test
     tmpfs:
       - /run
       - /tmp
@@ -29,5 +31,13 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      test:
+        telegraf_agent_global_tags:
+           foo: "bar"
+        telegraf_outputs_influxdb_username: 'foo'
+        telegraf_outputs_influxdb_password: 'bar'
+        telegraf_outputs_influxdb_urls: [ http://localhost:8086,http://localhost:9090 ]
 verifier:
   name: ansible
