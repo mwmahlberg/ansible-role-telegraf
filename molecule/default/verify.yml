@@ -19,7 +19,7 @@
 - name: Verify
   hosts: all
   tasks:
-  - name: Look for ECDSA private key
+  - name: Look for telegraf.conf
     stat:
       path: /etc/telegraf/telegraf.conf
     register: configfile 
