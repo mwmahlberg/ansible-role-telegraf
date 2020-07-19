@@ -63,4 +63,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 [ansible]: https://docs.ansible.com/ansible/latest/index.html
 [influx:telegraf]: https://docs.influxdata.com/telegraf/v1.14/
 [influx:retention_policy]: https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#retention-policy-rp
+[influxdb:tags]: https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#tag
 [go:duration]: https://pkg.go.dev/time?tab=doc#ParseDuration
