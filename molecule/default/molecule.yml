@@ -22,14 +22,14 @@ platforms:
   - name: centos8
     image: "geerlingguy/docker-centos8-ansible:latest"
     pre_build_image: true
-    command: /sbin/init
-    groups:
-      - test
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    # command: /sbin/init
+    # groups:
+    #   - test
+    # tmpfs:
+    #   - /run
+    #   - /tmp
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   inventory:
