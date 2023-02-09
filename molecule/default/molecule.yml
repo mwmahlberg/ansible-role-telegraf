@@ -20,7 +20,8 @@ driver:
   name: docker
 platforms:
   - name: centos8
-    image: centos:8
+    image: "geerlingguy/docker-centos8-ansible:latest"
+    pre_build_image: true
     command: /sbin/init
     groups:
       - test
