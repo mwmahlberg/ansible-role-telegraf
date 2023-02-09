@@ -15,13 +15,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 # tasks file for telegraf
+
 - name: Ensure InfluxData repo is present
-  copy:
-    src: 'influxdb.repo'
-    dest: '/etc/yum.repos.d/influxdb.repo'
-    owner: 'root'
-    group: 'root'
-    mode: '0644'
+  yum_repository:
+    name: influxdb
+    description: InfluxDB yum repo
+    baseurl: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
+    gpgkey:  https://repos.influxdata.com/influxdata-archive_compat.key
 
 - name: Ensure Telegraf is installed
   package:
