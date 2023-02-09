@@ -20,9 +20,8 @@
   yum_repository:
     name: influxdb
     description: InfluxDB yum repo
-    baseurl: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
-    gpgkey:  https://repos.influxdata.com/influxdata-archive_compat.key
-
+    baseurl: "{{ telegraf_influxdb_repo_url }}"
+    gpgkey: "{{ telegraf_influxdb_repo_key }}"
 - name: Ensure Telegraf is installed
   package:
     name: 'telegraf'
@@ -35,7 +34,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-    validate: '/usr/bin/telegraf -c %s --test'
+    validate: '/usr/bin/telegraf --config %s --test'
   notify: 'restart telegraf'
 
 - name: Gather information about installed services

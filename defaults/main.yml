@@ -15,6 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 # defaults file for telegraf
+telegraf_influxdb_repo_url: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
+telegraf_influxdb_repo_key: https://repos.influxdata.com/influxdata-archive_compat.key
 telegraf_agent_global_tags: {}
 telegraf_agent_interval: 10s
 telegraf_agent_round_interval: 'false'
