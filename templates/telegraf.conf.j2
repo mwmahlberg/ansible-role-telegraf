@@ -16,11 +16,11 @@
 
 # Global tags can be specified here in key="value" format.
 [global_tags]
-  {% if telegraf_agent_global_tags is defined %}
-  {% for item in telegraf_agent_global_tags %}
-{{ item }} = "{{ telegraf_agent_global_tags[item] }}"
-  {% endfor %}
-  {% endif %}
+{% if telegraf_agent_global_tags is defined %}
+{% for item in telegraf_agent_global_tags %}
+  {{ item }} = "{{ telegraf_agent_global_tags[item] }}"
+{% endfor %}
+{% endif %}
   
   # dc = "us-east-1" # will tag all metrics with dc=us-east-1
   # rack = "1a"
