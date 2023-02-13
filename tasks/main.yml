@@ -17,22 +17,31 @@
 # tasks file for telegraf
 
 - name: Ensure InfluxData repo is present
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: influxdb
     description: InfluxDB yum repo
     baseurl: "{{ telegraf_influxdb_repo_url }}"
     gpgkey: "{{ telegraf_influxdb_repo_key }}"
 - name: Ensure Telegraf is installed
-  package:
+  ansible.builtin.package:
     name: 'telegraf'
     state: 'installed'
 
+- name: Render telegraf plugin configs
+  ansible.builtin.template: 
+    src: '{{ item }}'
+    dest: '/etc/telegraf/telegraf.d/{{ item | basename | replace(".conf.j2", ".conf") }}'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  loop: "{{ lookup('fileglob', 'templates/telegraf.d/*', wantlist=True) }}"
+
 - name: Ensure telegraf is configured properly
-  template:
-    src: 'telegraf.conf.j2'
+  ansible.builtin.template:
+    src: 'templates/telegraf.conf.j2'
     dest: '/etc/telegraf/telegraf.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
-    validate: '/usr/bin/telegraf --config %s --test'
+    validate: '/usr/bin/telegraf --config %s --config-directory /etc/telegraf/telegraf.d --test'
   notify: 'restart telegraf'

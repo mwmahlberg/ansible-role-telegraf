@@ -30,9 +30,6 @@ provisioner:
     group_vars:
       test:
         telegraf_agent_global_tags:
-           foo: "bar"
-        telegraf_outputs_influxdb_username: 'foo'
-        telegraf_outputs_influxdb_password: 'bar'
-        telegraf_outputs_influxdb_urls: [ http://localhost:8086,http://localhost:9090 ]
+          foo: "bar"
 verifier:
   name: ansible

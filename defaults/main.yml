@@ -30,10 +30,4 @@ telegraf_agent_quiet: 'false'
 telegraf_agent_hostname: 
 telegraf_agent_omit_hostname: 'false'
 
-telegraf_outputs_influxdb_urls: ['http://127.0.0.1:8086']
-telegraf_outputs_influxdb_insecure_skip_verify: 'false'
-telegraf_outputs_influxdb_database: 'metrics'
-telegraf_outputs_influxdb_retention_policy: ''
-telegraf_outputs_influxdb_username: ''
-telegraf_outputs_influxdb_password: ''
-
+telegraf_outputs_health_endpoint: 'http://127.0.0.1:8081'

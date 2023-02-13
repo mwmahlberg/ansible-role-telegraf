@@ -15,8 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 - name: Converge
-  hosts: all
+  hosts: test
   tasks:
-    - name: "Include telegraf"
-      include_role:
+    - name: Include telegraf
+      ansible.builtin.include_role:
         name: "ansible-role-telegraf"

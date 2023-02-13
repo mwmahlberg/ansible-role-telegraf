@@ -15,8 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ---
 # handlers file for telegraf
-- name: restart telegraf
-  systemd:
+- name: Restart telegraf
+  ansible.builtin.systemd:
     name: telegraf
     state: restarted
     enabled: true
