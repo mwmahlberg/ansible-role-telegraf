@@ -27,12 +27,21 @@
     name: 'telegraf'
     state: 'installed'
 
+- name: Render telegraf plugin configs
+  template: 
+    src: '{{ item }}'
+    dest: '/etc/telegraf/telegraf.d/{{ item | basename | replace(".conf.j2", ".conf") }}'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  loop: "{{ lookup('fileglob', 'templates/telegraf.d/*', wantlist=True) }}"
+
 - name: Ensure telegraf is configured properly
   template:
-    src: 'telegraf.conf.j2'
+    src: 'templates/telegraf.conf.j2'
     dest: '/etc/telegraf/telegraf.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
-    validate: '/usr/bin/telegraf --config %s --test'
+    validate: '/usr/bin/telegraf --config %s --config-directory /etc/telegraf/telegraf.d --test'
   notify: 'restart telegraf'
