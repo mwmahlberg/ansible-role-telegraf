@@ -17,6 +17,6 @@
 - name: Converge
   hosts: test
   tasks:
-    - name: "Include telegraf"
-      include_role:
+    - name: Include telegraf
+      ansible.builtin.include_role:
         name: "ansible-role-telegraf"

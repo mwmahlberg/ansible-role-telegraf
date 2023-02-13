@@ -20,11 +20,12 @@
   hosts: all
   tasks:
   - name: Look for telegraf.conf
-    stat:
+    ansible.builtin.stat:
       path: /etc/telegraf/telegraf.conf
     register: configfile 
-  - debug:
+  - name: Debug Configfile
+    ansible.builtin.debug:
       var: configfile
   - name: Check that /etc/telegraf/telegraf.conf exists
-    assert:
+    ansible.builtin.assert:
       that: configfile.stat.exists
