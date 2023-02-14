@@ -11,37 +11,37 @@ none
 Role Variables
 --------------
 
-| Name                                             | Description                                                                                                                                            | Default Value                                                    |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| `telegraf_influxdb_repo_url`                     | Repository URL to use                                                                                                                                  | `https://repos.influxdata.com/rhel/$releasever/$basearch/stable` |
-| `telegraf_influxdb_repo_key`                     | URL of the package signing key for the above repository                                                                                                | `https://repos.influxdata.com/influxdata-archive_compat.key`     |
-| `telegraf_agent_global_tags`                     | [Tags][influxdb:tags] applied to all metrics                                                                                                           | none                                                             |
-| `telegraf_agent_interval`                        | Default data collection interval for all inputs as [Go duration expression][go:duration]                                                               | `10s`                                                            |
-| `telegraf_agent_flush_interval`                  | Default flushing interval for all outputs. You shouldn't set this below`telegraf_agent_interval`. [Go duration expression][go:duration]                | `10s`                                                            |
-| `telegraf_agent_flush_jitter`                    | Jitter the flush interval by a random amount `0s < value < telegraf_agent_flush_jitter`. [Go duration expression][go:duration]                         | `0s`                                                             |
-| `telegraf_agent_round_interval`                  | Rounds collection interval to `telegraf_agent_interval`, ie, if `telegraf_agent_interval` is "10s" then always collect on :00, :10, :20, etc.          | `false`                                                          |
-| `telegraf_agent_collection_jitter`               | Collection jitter is used to jitter the collection by a random amount. [Go duration expression][go:duration]. Must be < than `telegraf_agent_interval` | `0s`                                                             |
-| `telegraf_agent_metric.batch_size`               | Telegraf will send metrics to outputs in batches of at most `telegraf_agent_metric_batch_size`.                                                        | `1000`                                                           |
-| `telegraf_agent_metric.buffer_limit`             | For failed writes, telegraf will cache metric_buffer_limit metrics for each output, and will flush this buffer on a successful write.                  | `100000`                                                         |
-| `telegraf_agent_debug`                           | Run telegraf with debug log messages.                                                                                                                  | `false`                                                          |
-| `telegraf_agent_quiet`                           | Run telegraf in quiet mode (error log messages only).                                                                                                  | `false`                                                          |
-| `telegraf_agent_hostname`                        | Override default hostname, if empty the hostname will be automatically determined.                                                                     | none                                                             |
-| `telegraf_agent_omit_hostname`                   | If set to true, do no set the "host" tag in the telegraf agent. ***Do not change unless you really know what you are doing.***                         | `false`                                                          |
-| `telegraf_outputs_influxdb_urls`                 | A list of full HTTP URLs for your InfluxDB instance.                                                                                                   | `["http://127.0.0.1:8086"]`                                      |
-| `telegraf_outputs_influxdb_insecure_skip_verify` | When set to true, and `telegraf_outputs_influxdb_urls` contains `https` URLs, TLS is used, but the chain & host verification is skipped.               | `false`                                                          |
-| `telegraf_outputs_influxdb_database`             | The target database for metrics; will be created as needed.                                                                                            | `metrics`                                                        |
-| `telegraf_outputs_influxdb_retention_policy`     | Name of existing [retention policy][influx:retention_policy] to write to. If empty, telegraf writes to the default retention policy                    | none                                                             |
-| `telegraf_outputs_influxdb_username`             | Username to authenticate telegraf against InfluxDB.                                                                                                    | none                                                             |
-| `telegraf_outputs_influxdb_password`             | Password to authenticate telegraf against InfluxDB.                                                                                                    | none                                                             |
+| Name                                 | Description                                                                                                                                            | Default Value                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `telegraf_influxdb_repo_url`         | Repository URL to use                                                                                                                                  | `https://repos.influxdata.com/rhel/$releasever/$basearch/stable` |
+| `telegraf_influxdb_repo_key`         | URL of the package signing key for the above repository                                                                                                | `https://repos.influxdata.com/influxdata-archive_compat.key`     |
+| `telegraf_agent_global_tags`         | [Tags][influxdb:tags] applied to all metrics                                                                                                           | none                                                             |
+| `telegraf_agent_interval`            | Default data collection interval for all inputs as [Go duration expression][go:duration]                                                               | `10s`                                                            |
+| `telegraf_agent_flush_interval`      | Default flushing interval for all outputs. You shouldn't set this below`telegraf_agent_interval`. [Go duration expression][go:duration]                | `10s`                                                            |
+| `telegraf_agent_flush_jitter`        | Jitter the flush interval by a random amount `0s < value < telegraf_agent_flush_jitter`. [Go duration expression][go:duration]                         | `0s`                                                             |
+| `telegraf_agent_round_interval`      | Rounds collection interval to `telegraf_agent_interval`, ie, if `telegraf_agent_interval` is "10s" then always collect on :00, :10, :20, etc.          | `false`                                                          |
+| `telegraf_agent_collection_jitter`   | Collection jitter is used to jitter the collection by a random amount. [Go duration expression][go:duration]. Must be < than `telegraf_agent_interval` | `0s`                                                             |
+| `telegraf_agent_metric.batch_size`   | Telegraf will send metrics to outputs in batches of at most `telegraf_agent_metric_batch_size`.                                                        | `1000`                                                           |
+| `telegraf_agent_metric.buffer_limit` | For failed writes, telegraf will cache metric_buffer_limit metrics for each output, and will flush this buffer on a successful write.                  | `100000`                                                         |
+| `telegraf_agent_debug`               | Run telegraf with debug log messages.                                                                                                                  | `false`                                                          |
+| `telegraf_agent_quiet`               | Run telegraf in quiet mode (error log messages only).                                                                                                  | `false`                                                          |
+| `telegraf_agent_hostname`            | Override default hostname, if empty the hostname will be automatically determined.                                                                     | none                                                             |
+| `telegraf_agent_omit_hostname`       | If set to true, do no set the "host" tag in the telegraf agent. ***Do not change unless you really know what you are doing.***                         | `false`                                                          |
+| `telegraf_outputs_health_endpoint`   | The health endpoint of the Telegraf instance as the only default output-plugin.                                                                        | `http://127.0.0.1:8081`                                          |
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
+```
     - hosts: servers
       roles:
-         - { role: telegraf, telegraf_outputs_influxdb_username: 'me', telegraf_outputs_influxdb_password: 'secret' }
+        - role: telegraf
+          vars:
+            telegraf_agent_global_tags:
+              foo: bar
+```
 
 License
 -------
