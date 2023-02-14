@@ -19,12 +19,12 @@ telegraf_influxdb_repo_url: https://repos.influxdata.com/rhel/$releasever/$basea
 telegraf_influxdb_repo_key: https://repos.influxdata.com/influxdata-archive_compat.key
 telegraf_agent_global_tags: {}
 telegraf_agent_interval: 10s
+telegraf_agent_flush_interval: '10s'
+telegraf_agent_flush_jitter: '0s'
 telegraf_agent_round_interval: 'false'
 telegraf_agent_collection_jitter: '0s'
 telegraf_agent_metric_batch_size: 1000
 telegraf_agent_metric_buffer_limit: 100000
-telegraf_agent_flush_interval: '10s'
-telegraf_agent_flush_jitter: '0s'
 telegraf_agent_debug: 'false'
 telegraf_agent_quiet: 'false'
 telegraf_agent_hostname: 
