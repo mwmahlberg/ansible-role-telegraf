@@ -44,4 +44,4 @@
     group: 'root'
     mode: '0644'
     validate: '/usr/bin/telegraf --config %s --config-directory /etc/telegraf/telegraf.d --test'
-  notify: 'restart telegraf'
+  notify: 'Restart telegraf'
