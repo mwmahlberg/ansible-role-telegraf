@@ -31,3 +31,8 @@ telegraf_agent_hostname:
 telegraf_agent_omit_hostname: 'false'
 
 telegraf_outputs_health_endpoint: 'http://127.0.0.1:8081'
+
+telegraf_agent_logfile: ''
+# telegraf_agent_log_rotation_interval = 0h
+# telegraf_agent_log_max_size = 0MB
+# telegraf_agent_log_timezone = local

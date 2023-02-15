@@ -90,7 +90,16 @@
 
   ## Name of the file to be logged to when using the "file" logtarget.  If set to
   ## the empty string then logs are written to stderr.
+  # logfile = ""
+
+  {% if telegraf_agent_logfile is undefined or telegraf_agent_logfile == '' -%}
   logfile = ""
+  {% else -%}
+  logfile = "{{ telegraf_agent_logfile }}"
+  logfile_rotation_interval = "{{ telegraf_agent_log_rotation_interval | default('0h') }}"
+  logfile_rotation_max_size = "{{ telegraf_agent_log_max_size | default('0MB') }}"
+  log_with_timezone = "{{ telegraf_agent_log_timezone | default('local') }}"
+  {% endif %}
 
   ## The logfile will be rotated after the time interval specified.  When set
   ## to 0 no time based rotation is performed.  Logs are rotated only when
